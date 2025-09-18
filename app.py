@@ -224,13 +224,30 @@ if page == "Dashboard":
             yaxis="y3"
         ))
 
-        # Safe layout (avoid problematic keys)
+        # Fixed layout configuration
         fig.update_layout(
             title="Environmental Metrics Over Time (Last 3 Days)",
             xaxis=dict(title="Time", rangeslider=dict(visible=True), type="date"),
-            yaxis=dict(title="Temperature (°C)", titlefont=dict(color="red"), tickfont=dict(color="red")),
-            yaxis2=dict(title="Humidity (%)", titlefont=dict(color="blue"), tickfont=dict(color="blue"), overlaying="y", side="right"),
-            yaxis3=dict(title="Air Quality (AQI)", titlefont=dict(color="green"), tickfont=dict(color="green"), overlaying="y", side="right"),
+            yaxis=dict(
+                title="Temperature (°C)", 
+                titlefont=dict(color="red"),
+                tickfont=dict(color="red")
+            ),
+            yaxis2=dict(
+                title="Humidity (%)",
+                titlefont=dict(color="blue"),
+                tickfont=dict(color="blue"),
+                overlaying="y",
+                side="right"
+            ),
+            yaxis3=dict(
+                title="Air Quality (AQI)",
+                titlefont=dict(color="green"),
+                tickfont=dict(color="green"),
+                overlaying="y",
+                side="right",
+                position=0.85  # Position to avoid overlap
+            ),
             legend=dict(orientation="h", y=1.05),
             hovermode="x unified",
             height=500
