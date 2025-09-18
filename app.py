@@ -194,66 +194,54 @@ if page == "Dashboard":
     tab1, tab2, tab3 = st.tabs(["📈 Time Series", "📊 Statistics", "🌡️ AQI Analysis"])
 
     with tab1:
-        # Build main figure
-        fig = go.Figure()
-
-        fig.add_trace(go.Scatter(
+        # Create separate figures instead of one with multiple y-axes
+        st.subheader("Temperature")
+        fig_temp = go.Figure()
+        fig_temp.add_trace(go.Scatter(
             x=df["timestamp"],
             y=df["temperature"],
             name="Temperature (°C)",
             mode="lines+markers",
-            line=dict(color='red', width=2),
-            yaxis="y"
+            line=dict(color='red', width=2)
         ))
-
-        fig.add_trace(go.Scatter(
+        fig_temp.update_layout(
+            xaxis=dict(title="Time", rangeslider=dict(visible=True), type="date"),
+            yaxis=dict(title="Temperature (°C)"),
+            height=300
+        )
+        st.plotly_chart(fig_temp, use_container_width=True)
+        
+        st.subheader("Humidity")
+        fig_hum = go.Figure()
+        fig_hum.add_trace(go.Scatter(
             x=df["timestamp"],
             y=df["humidity"],
             name="Humidity (%)",
             mode="lines+markers",
-            line=dict(color='blue', width=2),
-            yaxis="y2"
+            line=dict(color='blue', width=2)
         ))
-
-        fig.add_trace(go.Scatter(
+        fig_hum.update_layout(
+            xaxis=dict(title="Time", rangeslider=dict(visible=True), type="date"),
+            yaxis=dict(title="Humidity (%)"),
+            height=300
+        )
+        st.plotly_chart(fig_hum, use_container_width=True)
+        
+        st.subheader("Air Quality")
+        fig_aqi = go.Figure()
+        fig_aqi.add_trace(go.Scatter(
             x=df["timestamp"],
             y=df["air_quality"],
             name="Air Quality (AQI)",
             mode="lines+markers",
-            line=dict(color='green', width=2),
-            yaxis="y3"
+            line=dict(color='green', width=2)
         ))
-
-        # Fixed layout configuration
-        fig.update_layout(
-            title="Environmental Metrics Over Time (Last 3 Days)",
+        fig_aqi.update_layout(
             xaxis=dict(title="Time", rangeslider=dict(visible=True), type="date"),
-            yaxis=dict(
-                title="Temperature (°C)", 
-                titlefont=dict(color="red"),
-                tickfont=dict(color="red")
-            ),
-            yaxis2=dict(
-                title="Humidity (%)",
-                titlefont=dict(color="blue"),
-                tickfont=dict(color="blue"),
-                overlaying="y",
-                side="right"
-            ),
-            yaxis3=dict(
-                title="Air Quality (AQI)",
-                titlefont=dict(color="green"),
-                tickfont=dict(color="green"),
-                overlaying="y",
-                side="right",
-                position=0.85  # Position to avoid overlap
-            ),
-            legend=dict(orientation="h", y=1.05),
-            hovermode="x unified",
-            height=500
+            yaxis=dict(title="Air Quality (AQI)"),
+            height=300
         )
-
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig_aqi, use_container_width=True)
 
     with tab2:
         st.subheader("Data Statistics")
