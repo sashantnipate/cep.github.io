@@ -256,8 +256,7 @@ if page == "Dashboard":
                 title="Temperature (°C)",
                 titlefont=dict(color="red"),
                 tickfont=dict(color="red"),
-                side="left",
-                position=0.05
+                side="left"
             ),
             yaxis2=dict(
                 title="Humidity (%)",
@@ -265,8 +264,7 @@ if page == "Dashboard":
                 tickfont=dict(color="blue"),
                 anchor="free",
                 overlaying="y",
-                side="left",
-                position=0.3
+                side="left"
             ),
             yaxis3=dict(
                 title="Air Quality (AQI)",
@@ -280,6 +278,7 @@ if page == "Dashboard":
             hovermode="x unified",
             height=500
         )
+
     
         st.plotly_chart(fig, use_container_width=True)
     
@@ -545,4 +544,5 @@ st.sidebar.info("Environmental Dashboard v1.0 | © 2023")
 # Main footer
 if page != "About":
     st.markdown("---")
+
     st.caption(f"Data updated at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} | Next refresh at: {(st.session_state.last_refresh + timedelta(hours=1)).strftime('%H:%M:%S')}")
